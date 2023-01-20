@@ -1,16 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarcott <mmarcott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/19 14:49:51 by mmarcott          #+#    #+#             */
-/*   Updated: 2023/01/20 12:03:25 by mmarcott         ###   ########.fr       */
+/*   Created: 2023/01/20 12:48:47 by mmarcott          #+#    #+#             */
+/*   Updated: 2023/01/20 12:49:32 by mmarcott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
-#include <signal.h>
+#include "libft.h"
 
-#define WAIT_TIME 100
+void	*ft_free(void *ptr)
+{
+	if (ptr)
+		free(ptr);
+	return (NULL);
+}

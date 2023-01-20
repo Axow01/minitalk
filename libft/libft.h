@@ -2,14 +2,16 @@
 /*                                                                            */
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: mmarcott <mmarcott@student.42.fr>          +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
+/*                                                    +:+ +:+        
+	+:+     */
+/*   By: mmarcott <mmarcott@student.42.fr>          +#+  +:+      
+	+#+        */
+/*                                                +#+#+#+#+#+  
+	+#+           */
 /*   Created: 2023/01/19 14:55:19 by mmarcott          #+#    #+#             */
 /*   Updated: 2023/01/19 14:55:19 by mmarcott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef LIBFT_H
 # define LIBFT_H
@@ -82,7 +84,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len);
 
 char	*ft_strtrim(char const *s1, char const *set);
 
-char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoin(char *s1, char *s2);
 
 char	*ft_itoa(int n);
 
@@ -122,6 +124,7 @@ int	ft_put_u(unsigned int n);
 char	*ft_ulltoa(unsigned long long n, int base);
 int	ft_put_hex(unsigned int nb, char maj);
 int	ft_put_p(uintptr_t nbr);
-int ft_printf(char *string, ...);
+int	ft_printf(char *string, ...);
+void	*ft_free(void *ptr);
 
 #endif
