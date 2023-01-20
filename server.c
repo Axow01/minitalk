@@ -6,7 +6,7 @@
 /*   By: mmarcott <mmarcott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 14:49:48 by mmarcott          #+#    #+#             */
-/*   Updated: 2023/01/20 15:22:37 by mmarcott         ###   ########.fr       */
+/*   Updated: 2023/01/20 16:02:26 by mmarcott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	main(void)
 	int	pid;
 
 	pid = (int)getpid();
-	ft_printf("Server is starting PID is: %d\n", pid);
+	ft_printf("%d\n", pid);
 	signal(SIGUSR1, ft_receiving);
 	signal(SIGUSR2, ft_receiving);
 	while (1)
