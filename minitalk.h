@@ -5,12 +5,19 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmarcott <mmarcott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/19 14:49:51 by mmarcott          #+#    #+#             */
-/*   Updated: 2023/01/20 12:03:25 by mmarcott         ###   ########.fr       */
+/*   Created: 2023/01/20 15:10:12 by mmarcott          #+#    #+#             */
+/*   Updated: 2023/01/20 15:13:59 by mmarcott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
-#include <signal.h>
+#ifndef MINITALK_H
+# define MINITALK_H
 
-#define WAIT_TIME 100
+# include "libft/libft.h"
+# include <signal.h>
+
+# define WAIT_TIME 100
+
+void	ft_send_bits(char c, int pid);
+
+#endif

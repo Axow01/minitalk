@@ -6,7 +6,7 @@
 /*   By: mmarcott <mmarcott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 14:49:42 by mmarcott          #+#    #+#             */
-/*   Updated: 2023/01/20 13:00:02 by mmarcott         ###   ########.fr       */
+/*   Updated: 2023/01/20 15:25:19 by mmarcott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,20 @@ void	ft_send_bits(char c, int pid)
 
 int	main(int argc, char **argv)
 {
-	int i;
-	char *message = argv[2];
+	int		i;
+	char	*message;
+	int		pid;
+
+	message = argv[2];
 	i = 0;
-	if (argc != 3) // Checking for the numbers of arguments.
+	if (argc != 3)
 		return (ft_error_handling("The args are wrong!", "001"), 0);
-	while (argv[1][i]) // Checking if the first argument is a number.
+	while (argv[1][i])
 	{
 		if (!ft_isdigit((int)argv[1][i++]))
 			return (ft_error_handling("The args[0] not a number!", "002"), 1);
 	}
-	int pid = ft_atoi(argv[1]);
+	pid = ft_atoi(argv[1]);
 	ft_printf("PID of the server is: %d\n", pid);
 	i = 0;
 	while (message[i])

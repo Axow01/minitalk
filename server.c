@@ -6,19 +6,11 @@
 /*   By: mmarcott <mmarcott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 14:49:48 by mmarcott          #+#    #+#             */
-/*   Updated: 2023/01/20 13:02:45 by mmarcott         ###   ########.fr       */
+/*   Updated: 2023/01/20 15:22:37 by mmarcott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
-
-/*
-SIGUSR1 = 0
-SIGUSR2 = 1
-bit 0 - 7
-00000000
-
-*/
 
 void	ft_print_converted_binary(char *binary)
 {
@@ -56,7 +48,9 @@ void	ft_receiving(int signal)
 
 int	main(void)
 {
-	int pid = (int)getpid();
+	int	pid;
+
+	pid = (int)getpid();
 	ft_printf("Server is starting PID is: %d\n", pid);
 	signal(SIGUSR1, ft_receiving);
 	signal(SIGUSR2, ft_receiving);
