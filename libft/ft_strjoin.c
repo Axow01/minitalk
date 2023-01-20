@@ -17,16 +17,16 @@
 
 char	*ft_strjoin(char *s1, char *s2)
 {
-	char *joined;
-	size_t i;
-	size_t j;
+	char	*joined;
+	size_t	i;
+	size_t	j;
 
 	i = 0;
 	j = 0;
 	if (!s1 && !s2)
 		return (NULL);
 	joined = ft_calloc((ft_strlen((char *)s1) + ft_strlen((char *)s2) + 1),
-						sizeof(char));
+			sizeof(char));
 	if (!joined)
 		return (NULL);
 	while (s1 && s1[i])
