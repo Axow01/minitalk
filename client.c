@@ -6,7 +6,7 @@
 /*   By: mmarcott <mmarcott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 14:49:42 by mmarcott          #+#    #+#             */
-/*   Updated: 2023/01/20 15:58:27 by mmarcott         ###   ########.fr       */
+/*   Updated: 2023/01/21 13:03:17 by mmarcott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	ft_send_bits(char c, int pid)
 	int	i;
 
 	i = -1;
+	if (!ft_isprint((int)c))
+		return ;
 	while (++i < 8)
 	{
 		if (c & 0x01)
@@ -40,8 +42,8 @@ int	main(int argc, char **argv)
 	char	*message;
 	int		pid;
 
-	message = argv[2];
 	i = 0;
+	message = argv[2];
 	if (argc != 3)
 		return (ft_error_handling("The args are wrong!", "001"), 0);
 	while (argv[1][i])
@@ -50,9 +52,10 @@ int	main(int argc, char **argv)
 			return (ft_error_handling("The args[0] not a number!", "002"), 1);
 	}
 	pid = ft_atoi(argv[1]);
-	ft_printf("PID of the server is: %d\n", pid);
 	i = 0;
 	while (message[i])
+	{
 		ft_send_bits(message[i++], pid);
+	}
 	return (1);
 }

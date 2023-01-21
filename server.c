@@ -6,7 +6,7 @@
 /*   By: mmarcott <mmarcott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 14:49:48 by mmarcott          #+#    #+#             */
-/*   Updated: 2023/01/20 16:02:26 by mmarcott         ###   ########.fr       */
+/*   Updated: 2023/01/21 12:57:03 by mmarcott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,22 +28,27 @@ void	ft_print_converted_binary(char *binary)
 		base *= 2;
 		i--;
 	}
-	ft_printf("%c", dec, (char)dec);
+	ft_putchar_fd((char)dec, 1);
 }
 
 void	ft_receiving(int signal)
 {
-	static char	*binary;
+	static char	*binary = NULL;
+	static int current_bit = 0;
 
 	if (signal == SIGUSR2)
 		binary = ft_strjoin("1", binary);
 	else if (signal == SIGUSR1)
 		binary = ft_strjoin("0", binary);
-	if (ft_strlen(binary) >= 8)
+	if (current_bit == 7)
 	{
+		current_bit = 0;
 		ft_print_converted_binary(binary);
+		ft_bzero(binary, 9);
 		binary = ft_free(binary);
+		return ;
 	}
+	current_bit++;
 }
 
 int	main(void)
@@ -55,5 +60,5 @@ int	main(void)
 	signal(SIGUSR1, ft_receiving);
 	signal(SIGUSR2, ft_receiving);
 	while (1)
-		usleep(WAIT_TIME);
+		pause();
 }

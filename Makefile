@@ -21,6 +21,7 @@ all	: ${LIBFTDIR}${LIBFT} ${NAMES} ${NAMEC}
  
 ${LIBFTDIR}${LIBFT}:
 					${MAKE} -C ${LIBFTDIR}
+					${MAKE} -C ${LIBFTDIR} bonus
 ${NAMES}: ${OBJSS}
 					${CC} ${CFLAGS} -o ${NAMES} ${LIBFTDIR}${LIBFT} ${OBJSS}
 ${NAMEC}: ${OBJSC}

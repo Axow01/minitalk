@@ -24,6 +24,7 @@ char	*ft_strjoin(char *s1, char *s2)
 		return (NULL);
 	joined = ft_calloc((ft_strlen((char *)s1) + ft_strlen((char *)s2) + 1),
 			sizeof(char));
+	ft_bzero(joined, (ft_strlen((char *)s1) + ft_strlen((char *)s2) + 1));
 	if (!joined)
 		return (NULL);
 	while (s1 && s1[i])
