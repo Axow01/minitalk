@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarcott <mmarcott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mick <mick@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 14:49:48 by mmarcott          #+#    #+#             */
-/*   Updated: 2023/01/21 12:57:03 by mmarcott         ###   ########.fr       */
+/*   Updated: 2023/01/23 12:01:53 by mick             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	main(void)
 	int	pid;
 
 	pid = (int)getpid();
-	ft_printf("%d\n", pid);
+	ft_printf("\033[1;33mPID: \033[0;36m%d\n", pid);
 	signal(SIGUSR1, ft_receiving);
 	signal(SIGUSR2, ft_receiving);
 	while (1)
