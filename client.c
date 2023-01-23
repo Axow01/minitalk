@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mick <mick@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mmarcott <mmarcott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 14:49:42 by mmarcott          #+#    #+#             */
-/*   Updated: 2023/01/23 12:33:25 by mick             ###   ########.fr       */
+/*   Updated: 2023/01/23 14:21:33 by mmarcott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
+#include <wchar.h>
 
 void	ft_error_handling(char *error, char *code)
 {
@@ -18,12 +19,34 @@ void	ft_error_handling(char *error, char *code)
 	ft_printf("The right usage is ./client <pidnumber:int> <message:string>");
 }
 
+void	ft_send_strlen(char *message, int pid)
+{
+	int length;
+	int i;
+	int k;
+
+	i = 0;
+	k = 0;
+	length = ft_strlen(message);
+
+	while (i < 32)
+	{
+		if (length & 0x01)
+			kill(pid, SIGUSR2);
+		else
+			kill(pid, SIGUSR1);
+		length = length >> 1;
+		usleep(WAIT_TIME);
+		i++;
+	}
+}
+
 void	ft_send_bits(char c, int pid)
 {
 	int	i;
 
 	i = -1;
-	if (!ft_isprint((int)c))
+	if (!ft_isprint((int)c) && c != '\n')
 		return ;
 	while (++i < 8)
 	{
@@ -53,9 +76,10 @@ int	main(int argc, char **argv)
 	}
 	pid = ft_atoi(argv[1]);
 	i = 0;
+	ft_send_strlen(message, pid);
 	while (message[i])
 	{
 		ft_send_bits(message[i++], pid);
 	}
-	return (1);
+	return (0);
 }
