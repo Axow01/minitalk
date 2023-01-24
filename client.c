@@ -6,7 +6,7 @@
 /*   By: mmarcott <mmarcott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 14:49:42 by mmarcott          #+#    #+#             */
-/*   Updated: 2023/01/24 14:53:38 by mmarcott         ###   ########.fr       */
+/*   Updated: 2023/01/24 18:18:35 by mmarcott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,11 @@ void	ft_send_strlen(char *message, int pid)
 	}
 }
 
-void	ft_send_bits(unsigned char c, int pid)
+void	ft_send_bits(char c, int pid)
 {
 	int	i;
 
 	i = -1;
-	if (!ft_isprint((int)c) && c != '\n')
-		return ;
 	while (++i < 8)
 	{
 		if (c & 0x01)

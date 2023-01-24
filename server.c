@@ -6,7 +6,7 @@
 /*   By: mmarcott <mmarcott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 14:49:48 by mmarcott          #+#    #+#             */
-/*   Updated: 2023/01/24 13:42:57 by mmarcott         ###   ########.fr       */
+/*   Updated: 2023/01/24 18:19:12 by mmarcott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,25 @@ int	ft_print_converted_binary(char *binary)
 		i--;
 	}
 	return (dec);
+}
+
+char	*ft_add_char(char *str, char c)
+{
+	int i;
+	char *newstring;
+
+	i = 0;
+	newstring = ft_calloc(ft_strlen(str) + 2, sizeof(char));
+	if (!newstring)
+		return(NULL);
+	while (str && str[i])
+	{
+		newstring[i] = str[i];
+		i++;
+	}
+	newstring[i++] = c;
+	newstring[i] = 0;
+	return(str = ft_free(str), newstring);
 }
 
 void ft_receive_strlen(char **binary, int *length, int signal)
@@ -54,7 +73,7 @@ void	ft_receiving(int signal, siginfo_t *info, void *context)
 	static char	*binary = NULL;
 	static int current_bit = 0;
 	static int lenght = 0;
-	static int i = 0;
+	static char *phrase = NULL;
 	int sender_pid;
 	
 	(void)context;
@@ -72,12 +91,14 @@ void	ft_receiving(int signal, siginfo_t *info, void *context)
 		if (current_bit == 7)
 		{
 			current_bit = 0;
-			ft_printf("%c", (char)ft_print_converted_binary(binary));
+			phrase = ft_add_char(phrase, ft_print_converted_binary(binary));
 			binary = ft_free(binary);
-			i++;
-			if (i >= lenght)
+			lenght--;
+			if (lenght <= 0)
 			{
-				i = 0;
+				lenght = 0;
+				ft_printf("%s", phrase);
+				phrase = ft_free(phrase);
 				kill(sender_pid, SIGUSR1);
 			}
 			return ;
