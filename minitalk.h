@@ -6,7 +6,7 @@
 /*   By: mmarcott <mmarcott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/20 15:10:12 by mmarcott          #+#    #+#             */
-/*   Updated: 2023/01/20 15:13:59 by mmarcott         ###   ########.fr       */
+/*   Updated: 2023/01/24 14:42:58 by mmarcott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,6 @@
 
 # define WAIT_TIME 100
 
-void	ft_send_bits(char c, int pid);
+void	ft_send_bits(unsigned char c, int pid);
 
 #endif

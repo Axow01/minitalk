@@ -6,7 +6,7 @@
 /*   By: mmarcott <mmarcott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 14:49:42 by mmarcott          #+#    #+#             */
-/*   Updated: 2023/01/23 15:45:09 by mmarcott         ###   ########.fr       */
+/*   Updated: 2023/01/24 14:42:34 by mmarcott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	ft_send_strlen(char *message, int pid)
 	}
 }
 
-void	ft_send_bits(char c, int pid)
+void	ft_send_bits(unsigned char c, int pid)
 {
 	int	i;
 
@@ -59,6 +59,12 @@ void	ft_send_bits(char c, int pid)
 	}
 }
 
+void ft_receive_confirmation(int signal)
+{
+	if (signal == SIGUSR1)
+		ft_printf("Message received!");
+}
+
 int	main(int argc, char **argv)
 {
 	int		i;
@@ -67,6 +73,7 @@ int	main(int argc, char **argv)
 
 	i = 0;
 	message = argv[2];
+	signal(SIGUSR1, ft_receive_confirmation);
 	if (argc != 3)
 		return (ft_error_handling("The args are wrong!", "001"), 0);
 	while (argv[1][i])
@@ -80,7 +87,7 @@ int	main(int argc, char **argv)
 	while (message[i])
 	{
 		ft_send_bits(message[i++], pid);
+		usleep(WAIT_TIME);
 	}
 	return (0);
 }
-
