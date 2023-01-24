@@ -16,9 +16,9 @@ CFLAGS = -Wall -Wextra -Werror
 
 LIBFT = libft.a
 LIBFTDIR = libft/
- 
+
 all	: ${LIBFTDIR}${LIBFT} ${NAMES} ${NAMEC}
- 
+	@echo Making the project 🤪
 ${LIBFTDIR}${LIBFT}:
 					${MAKE} -C ${LIBFTDIR}
 					${MAKE} -C ${LIBFTDIR} bonus
