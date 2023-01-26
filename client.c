@@ -6,7 +6,7 @@
 /*   By: mmarcott <mmarcott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 14:49:42 by mmarcott          #+#    #+#             */
-/*   Updated: 2023/01/24 18:18:35 by mmarcott         ###   ########.fr       */
+/*   Updated: 2023/01/26 13:50:14 by mmarcott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void ft_receive_confirmation(int signal)
 {
 	if (signal == SIGUSR1)
 		ft_printf("Message received!");
+	exit(0);
 }
 
 int	main(int argc, char **argv)
@@ -87,5 +88,7 @@ int	main(int argc, char **argv)
 		ft_send_bits(message[i++], pid);
 		usleep(WAIT_TIME);
 	}
+	while (1)
+		pause();
 	return (0);
 }
