@@ -5,7 +5,7 @@ OBJSS = ${SRCSS:.c=.o}
 SRCC = client.c
 
 OBJSC = ${SRCC:.c=.o}
- 
+
 NAMES = server
 
 NAMEC = client
