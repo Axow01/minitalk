@@ -6,7 +6,7 @@
 /*   By: mmarcott <mmarcott@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 14:49:42 by mmarcott          #+#    #+#             */
-/*   Updated: 2023/01/26 13:50:14 by mmarcott         ###   ########.fr       */
+/*   Updated: 2023/02/20 22:24:34 by mmarcott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,8 @@ void	ft_send_strlen(char *message, int pid)
 {
 	int length;
 	int i;
-	int k;
 
 	i = 0;
-	k = 0;
 	length = ft_strlen(message);
 
 	while (i < 32)
