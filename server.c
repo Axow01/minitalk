@@ -6,7 +6,7 @@
 /*   By: mick <mick@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 14:49:48 by mmarcott          #+#    #+#             */
-/*   Updated: 2023/02/26 09:10:06 by mick             ###   ########.fr       */
+/*   Updated: 2023/02/26 09:44:05 by mick             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,8 @@ char	*ft_add_char(char *str, char c)
 
 void	ft_receive_strlen(char **binary, int *length, int signal)
 {
-	static int	current_bit_deux;
+	static int	current_bit_deux = 0;
 
-	current_bit_deux = 0;
 	if (signal == SIGUSR2)
 		*binary = ft_strjoin("1", *binary);
 	else if (signal == SIGUSR1)
@@ -71,22 +70,16 @@ void	ft_receive_strlen(char **binary, int *length, int signal)
 
 void	ft_receiving(int signal, siginfo_t *info, void *context)
 {
-	static char	*binary;
-	static int	current_bit;
-	static int	lenght;
-	static char	*phrase;
+	static char	*binary = NULL;
+	static int	current_bit = 0;
+	static int	lenght = 0;
+	static char	*phrase = NULL;
 	int			sender_pid;
 
-	binary = NULL;
-	current_bit = 0;
-	lenght = 0;
-	phrase = NULL;
 	(void)context;
 	sender_pid = info[0].si_pid;
 	if (lenght == 0)
-	{
 		ft_receive_strlen(&binary, &lenght, signal);
-	}
 	else
 	{
 		if (signal == SIGUSR2)
@@ -95,17 +88,8 @@ void	ft_receiving(int signal, siginfo_t *info, void *context)
 			binary = ft_strjoin("0", binary);
 		if (current_bit == 7)
 		{
-			current_bit = 0;
-			phrase = ft_add_char(phrase, ft_print_converted_binary(binary));
-			binary = ft_free(binary);
-			lenght--;
-			if (lenght <= 0)
-			{
-				lenght = 0;
-				ft_printf("%s", phrase);
-				phrase = ft_free(phrase);
-				kill(sender_pid, SIGUSR1);
-			}
+			ft_check_bit(&current_bit, &lenght, &phrase, &binary);
+			ft_check_length(&lenght, &phrase, sender_pid);
 			return ;
 		}
 		current_bit++;

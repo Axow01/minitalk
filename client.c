@@ -6,7 +6,7 @@
 /*   By: mick <mick@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 14:49:42 by mmarcott          #+#    #+#             */
-/*   Updated: 2023/02/26 09:08:08 by mick             ###   ########.fr       */
+/*   Updated: 2023/02/26 09:21:48 by mick             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ void	ft_send_bits(char c, int pid)
 	while (++i < 8)
 	{
 		if (c & 0x01)
-			ft_printf("%d\n", kill(pid, SIGUSR2));
+			kill(pid, SIGUSR2);
 		else
-			ft_printf("%d\n", kill(pid, SIGUSR1));
+			kill(pid, SIGUSR1);
 		c = c >> 1;
 		usleep(WAIT_TIME);
 	}
@@ -74,7 +74,6 @@ int	main(int argc, char **argv)
 		return (ft_error_handling("The args are wrong!", "001"), 0);
 	ft_check_pid(argv[1], message);
 	pid = ft_atoi(argv[1]);
-	ft_printf("After the things %d\n", pid);
 	i = 0;
 	ft_send_strlen(message, pid);
 	while (message[i])
@@ -82,7 +81,6 @@ int	main(int argc, char **argv)
 		ft_send_bits(message[i++], pid);
 		usleep(WAIT_TIME);
 	}
-	ft_printf("Lul..\n");
 	while (1)
 		pause();
 	return (0);
