@@ -6,16 +6,18 @@
 /*   By: mick <mick@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 20:03:45 by mick              #+#    #+#             */
-/*   Updated: 2023/02/25 20:13:07 by mick             ###   ########.fr       */
+/*   Updated: 2023/02/26 08:57:05 by mick             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-void	ft_check_pid(char *pid, char *message)
+void	ft_check_pid(char *pidd, char *message)
 {
-	int	i;
+	int		i;
+	char	*pid;
 
+	pid = pidd;
 	i = 0;
 	while (pid[i])
 	{

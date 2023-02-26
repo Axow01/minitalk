@@ -6,7 +6,7 @@
 /*   By: mick <mick@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 14:49:42 by mmarcott          #+#    #+#             */
-/*   Updated: 2023/02/25 20:16:16 by mick             ###   ########.fr       */
+/*   Updated: 2023/02/26 08:58:44 by mick             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int	main(int argc, char **argv)
 		ft_send_bits(message[i++], pid);
 		usleep(WAIT_TIME);
 	}
+	ft_printf("Lul..\n");
 	while (1)
 		pause();
 	return (0);
