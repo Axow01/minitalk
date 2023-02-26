@@ -2,7 +2,7 @@ SRCSS = server.c
 
 OBJSS = ${SRCSS:.c=.o}
 
-SRCC = client.c
+SRCC = client.c errors.c
 
 OBJSC = ${SRCC:.c=.o}
 

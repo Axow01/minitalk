@@ -1,25 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mick <mick@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/20 15:10:12 by mmarcott          #+#    #+#             */
-/*   Updated: 2023/02/25 20:11:11 by mick             ###   ########.fr       */
+/*   Created: 2023/02/25 20:03:45 by mick              #+#    #+#             */
+/*   Updated: 2023/02/25 20:13:07 by mick             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "minitalk.h"
 
-# include "libft/libft.h"
-# include <signal.h>
+void	ft_check_pid(char *pid, char *message)
+{
+	int	i;
 
-# define WAIT_TIME 100
-
-void	ft_send_bits(char c, int pid);
-void	ft_error_handling(char *error, char *code);
-void	ft_check_pid(char *pid, char *message);
-
-#endif
+	i = 0;
+	while (pid[i])
+	{
+		if (!ft_isdigit((int)pid[i++]))
+			ft_error_handling("Error the pid is wrong..", "001");
+	}
+	if (message[0] == '\0')
+		ft_error_handling("Error the message is empty..", "002");
+}
