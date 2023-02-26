@@ -6,7 +6,7 @@
 /*   By: mick <mick@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/25 20:03:45 by mick              #+#    #+#             */
-/*   Updated: 2023/02/26 08:57:05 by mick             ###   ########.fr       */
+/*   Updated: 2023/02/26 09:04:14 by mick             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	ft_check_pid(char *pidd, char *message)
 	while (pid[i])
 	{
 		if (!ft_isdigit((int)pid[i++]))
-			ft_error_handling("Error the pid is wrong..", "001");
+			ft_error_handling("The args[0] not a number!", "002");
+		if (message[0] == '\0')
+			ft_error_handling("The message is empty, not sending.", "003");
 	}
-	if (message[0] == '\0')
-		ft_error_handling("Error the message is empty..", "002");
 }

@@ -6,7 +6,7 @@
 /*   By: mick <mick@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 14:49:42 by mmarcott          #+#    #+#             */
-/*   Updated: 2023/02/26 08:58:44 by mick             ###   ########.fr       */
+/*   Updated: 2023/02/26 09:08:08 by mick             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ void	ft_send_bits(char c, int pid)
 	while (++i < 8)
 	{
 		if (c & 0x01)
-			kill(pid, SIGUSR2);
+			ft_printf("%d\n", kill(pid, SIGUSR2));
 		else
-			kill(pid, SIGUSR1);
+			ft_printf("%d\n", kill(pid, SIGUSR1));
 		c = c >> 1;
 		usleep(WAIT_TIME);
 	}
