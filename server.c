@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mmarcott <mmarcott@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mick <mick@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 14:49:48 by mmarcott          #+#    #+#             */
-/*   Updated: 2023/01/24 18:19:12 by mmarcott         ###   ########.fr       */
+/*   Updated: 2023/02/26 09:13:43 by mick             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,10 +116,8 @@ int	main(void)
 	ft_printf("\033[1;33mPID: \033[0;36m%d\n", pid);
 	sa.sa_flags = SA_SIGINFO;
 	sa.sa_sigaction = ft_receiving;
-
 	sigaction(SIGUSR1, &sa, NULL);
 	sigaction(SIGUSR2, &sa, NULL);
-	
 	while (1)
 		pause();
 	return (0);
