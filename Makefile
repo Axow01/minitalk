@@ -1,8 +1,8 @@
-SRCSS = server.c
+SRCSS = server.c server_func.c
 
 OBJSS = ${SRCSS:.c=.o}
 
-SRCC = client.c
+SRCC = client.c errors.c
 
 OBJSC = ${SRCC:.c=.o}
 
@@ -18,7 +18,7 @@ LIBFT = libft.a
 LIBFTDIR = libft/
 
 all	: ${LIBFTDIR}${LIBFT} ${NAMES} ${NAMEC}
-	@echo Making the project 🤪
+	@echo Project built successfully 🤪
 ${LIBFTDIR}${LIBFT}:
 					${MAKE} -C ${LIBFTDIR}
 					${MAKE} -C ${LIBFTDIR} bonus

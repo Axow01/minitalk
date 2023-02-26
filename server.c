@@ -6,7 +6,7 @@
 /*   By: mick <mick@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 14:49:48 by mmarcott          #+#    #+#             */
-/*   Updated: 2023/02/26 09:13:43 by mick             ###   ########.fr       */
+/*   Updated: 2023/02/26 09:44:05 by mmarcott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ int	ft_print_converted_binary(char *binary)
 
 char	*ft_add_char(char *str, char c)
 {
-	int i;
-	char *newstring;
+	int		i;
+	char	*newstring;
 
 	i = 0;
 	newstring = ft_calloc(ft_strlen(str) + 2, sizeof(char));
 	if (!newstring)
-		return(NULL);
+		return (NULL);
 	while (str && str[i])
 	{
 		newstring[i] = str[i];
@@ -47,13 +47,13 @@ char	*ft_add_char(char *str, char c)
 	}
 	newstring[i++] = c;
 	newstring[i] = 0;
-	return(str = ft_free(str), newstring);
+	return (str = ft_free(str), newstring);
 }
 
-void ft_receive_strlen(char **binary, int *length, int signal)
+void	ft_receive_strlen(char **binary, int *length, int signal)
 {
-	static int current_bit_deux = 0;
-	
+	static int	current_bit_deux = 0;
+
 	if (signal == SIGUSR2)
 		*binary = ft_strjoin("1", *binary);
 	else if (signal == SIGUSR1)
@@ -71,17 +71,15 @@ void ft_receive_strlen(char **binary, int *length, int signal)
 void	ft_receiving(int signal, siginfo_t *info, void *context)
 {
 	static char	*binary = NULL;
-	static int current_bit = 0;
-	static int lenght = 0;
-	static char *phrase = NULL;
-	int sender_pid;
-	
+	static int	current_bit = 0;
+	static int	lenght = 0;
+	static char	*phrase = NULL;
+	int			sender_pid;
+
 	(void)context;
 	sender_pid = info[0].si_pid;
 	if (lenght == 0)
-	{
 		ft_receive_strlen(&binary, &lenght, signal);
-	}
 	else
 	{
 		if (signal == SIGUSR2)
@@ -90,17 +88,8 @@ void	ft_receiving(int signal, siginfo_t *info, void *context)
 			binary = ft_strjoin("0", binary);
 		if (current_bit == 7)
 		{
-			current_bit = 0;
-			phrase = ft_add_char(phrase, ft_print_converted_binary(binary));
-			binary = ft_free(binary);
-			lenght--;
-			if (lenght <= 0)
-			{
-				lenght = 0;
-				ft_printf("%s", phrase);
-				phrase = ft_free(phrase);
-				kill(sender_pid, SIGUSR1);
-			}
+			ft_check_bit(&current_bit, &lenght, &phrase, &binary);
+			ft_check_length(&lenght, &phrase, sender_pid);
 			return ;
 		}
 		current_bit++;
@@ -109,9 +98,9 @@ void	ft_receiving(int signal, siginfo_t *info, void *context)
 
 int	main(void)
 {
-	int	pid;
-	struct sigaction sa;
-	
+	int					pid;
+	struct sigaction	sa;
+
 	pid = (int)getpid();
 	ft_printf("\033[1;33mPID: \033[0;36m%d\n", pid);
 	sa.sa_flags = SA_SIGINFO;
