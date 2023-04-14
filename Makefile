@@ -1,45 +1,43 @@
-SRCSS = server.c server_func.c
+SRCLIENT = src/client.c
 
-OBJSS = ${SRCSS:.c=.o}
+SRCSERVER = src/server.c
 
-SRCC = client.c errors.c
+OBJSERVER = $(patsubst src/%.c,bin/%.o,$(SRCSERVER))
 
-OBJSC = ${SRCC:.c=.o}
+OBJCLIENT = $(patsubst src/%.c,bin/%.o,$(SRCLIENT))
 
-NAMES = server
+NAMECLIENT = client
 
-NAMEC = client
- 
+NAMESERVER = server
+
 CC	 = gcc
- 
+
 CFLAGS = -Wall -Wextra -Werror
 
 LIBFT = libft.a
 LIBFTDIR = libft/
 
-all	: ${LIBFTDIR}${LIBFT} ${NAMES} ${NAMEC}
-	@echo Project built successfully 🤪
-${LIBFTDIR}${LIBFT}:
-					${MAKE} -C ${LIBFTDIR}
-					${MAKE} -C ${LIBFTDIR} bonus
-${NAMES}: ${OBJSS}
-					${CC} ${CFLAGS} -g -o ${NAMES} ${OBJSS} ${LIBFTDIR}${LIBFT}
-${NAMEC}: ${OBJSC}
-					${CC} ${CFLAGS} -g -o ${NAMEC} ${OBJSC} ${LIBFTDIR}${LIBFT}
+all: $(LIBFTDIR)$(LIBFT) $(NAMECLIENT) $(NAMESERVER)
 
-clean  :  
-					@rm -f ${OBJSS} ${OBJSC}
-					${MAKE} -C ${LIBFTDIR} fclean
- 
-fclean : clean
-					@rm -f ${NAMES} ${NAMEC}
- 
-re     : fclean all
+$(LIBFTDIR)$(LIBFT):
+	$(MAKE) -C $(LIBFTDIR)
+	$(MAKE) -C $(LIBFTDIR) bonus
 
-run	: all
-					@./server
+$(NAMECLIENT): $(OBJCLIENT) $(LIBFTDIR)$(LIBFT)
+	$(CC) $(CFLAGS) -g -o $(NAMECLIENT) $(LIBFTDIR)$(LIBFT) $(OBJCLIENT)
 
-push : fclean
-		@git add .
-		@git commit -m "ATOMATIC PUSH BY MAKEFILE"
-		@git push origin master
+$(NAMESERVER): $(OBJSERVER) $(LIBFTDIR)$(LIBFT)
+	$(CC) $(CFLAGS) -g -o $(NAMESERVER) $(LIBFTDIR)$(LIBFT) $(OBJSERVER)
+
+bin/%.o: src/%.c
+	mkdir -p bin
+	$(CC) $(CFLAGS) -c -o $@ $<
+
+clean:
+	@rm -rf bin/
+	$(MAKE) -C $(LIBFTDIR) fclean
+
+fclean: clean
+	@rm $(NAMESERVER) $(NAMECLIENT)
+
+re: fclean all
