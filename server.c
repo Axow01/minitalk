@@ -6,7 +6,7 @@
 /*   By: mmarcott <mmarcott@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 14:49:48 by mmarcott          #+#    #+#             */
-/*   Updated: 2023/04/14 17:15:58 by mmarcott         ###   ########.fr       */
+/*   Updated: 2023/04/14 18:14:27 by mmarcott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	ft_receiving(int signal, siginfo_t *info, void *context)
 		{
 			ft_check_bit(&current_bit, &lenght, &phrase, &binary);
 			ft_check_length(&lenght, &phrase, info[0].si_pid);
-			usleep(WAIT_TIME);
+			usleep(100);
 			kill(info[0].si_pid, SIGUSR2); // Sending bytes received confirmation.
 			return ;
 		}

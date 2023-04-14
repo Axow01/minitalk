@@ -6,7 +6,7 @@
 /*   By: mmarcott <mmarcott@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 14:49:42 by mmarcott          #+#    #+#             */
-/*   Updated: 2023/04/14 17:14:35 by mmarcott         ###   ########.fr       */
+/*   Updated: 2023/04/14 18:13:47 by mmarcott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ void	ft_send_strlen(char *message, int pid)
 		else
 			kill(pid, SIGUSR1);
 		length = length >> 1;
-		usleep(WAIT_TIME);
 		i++;
+		usleep(WAIT_TIME);
 	}
 }
 
@@ -44,48 +44,45 @@ void	ft_send_bits(char c, int pid)
 	int	i;
 
 	i = -1;
+	ft_printf("%c\n", c);
 	while (++i < 8)
 	{
 		if (c & 0x01)
-		{
-			ft_printf("1");
 			kill(pid, SIGUSR2);
-		}
 		else
-		{
-			ft_printf("0");
 			kill(pid, SIGUSR1);
-		}
+		if (i + 1 == 8)
+			return ;
 		c = c >> 1;
 		usleep(WAIT_TIME);
 	}
-	ft_printf("\n");
 }
 
-void	ft_receive_confirmation(int signal)
+void	ft_receive_confirmation(int signal, siginfo_t *info, void *context)
 {
+	(void)info;
+	(void)context;
 	if (signal == SIGUSR1)
 	{
 		ft_printf("Message received!");
 		exit(0);
 	}
-	else if(signal == SIGUSR2)
+	else if (signal == SIGUSR2)
 	{
-		ft_printf("Bytes received.\n");
+		return ;
 	}
 }
 
 int	main(int argc, char **argv)
 {
-	int		i;
-	char	*message;
-	int		pid;
-	int		count;
-	int		sizee;
+	int					i;
+	char				*message;
+	int					pid;
+	int					count;
+	int					sizee;
+	struct sigaction	sa;
 
 	message = argv[2];
-	signal(SIGUSR1, ft_receive_confirmation);
-	signal(SIGUSR2, ft_receive_confirmation);
 	ft_printf("%d\n", argc);
 	if (argc != 3)
 		return (ft_error_handling("The args are wrong!", "001"), 0);
@@ -93,17 +90,19 @@ int	main(int argc, char **argv)
 	pid = ft_atoi(argv[1]);
 	i = 0;
 	count = 1;
+	sa.sa_flags = SA_SIGINFO;
+	sa.sa_sigaction = ft_receive_confirmation;
+	sigaction(SIGUSR1, &sa, NULL);
+	sigaction(SIGUSR2, &sa, NULL);
 	sizee = ft_strlen(message);
 	//exit(0);
 	ft_send_strlen(message, pid);
 	while (message[i])
-    {
-        ft_send_bits(message[i++], pid);
+	{
+		ft_send_bits(message[i++], pid);
 		pause();
-		usleep(WAIT_TIME);
-        ft_printf("Sent: %d\n", sizee - count++);
-    }
-	//while (1)
-		//pause();
+	}
+	while (1)
+		pause();
 	return (0);
 }
