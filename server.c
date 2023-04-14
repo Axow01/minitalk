@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mick <mick@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mmarcott <mmarcott@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/19 14:49:48 by mmarcott          #+#    #+#             */
-/*   Updated: 2023/02/26 09:44:05 by mmarcott         ###   ########.fr       */
+/*   Updated: 2023/04/13 14:11:08 by mmarcott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,10 @@ void	ft_receiving(int signal, siginfo_t *info, void *context)
 	static int	current_bit = 0;
 	static int	lenght = 0;
 	static char	*phrase = NULL;
-	int			sender_pid;
 
 	(void)context;
-	sender_pid = info[0].si_pid;
+	if (lenght > 0)
+		ft_printf("%d\n", lenght);
 	if (lenght == 0)
 		ft_receive_strlen(&binary, &lenght, signal);
 	else
@@ -89,7 +89,7 @@ void	ft_receiving(int signal, siginfo_t *info, void *context)
 		if (current_bit == 7)
 		{
 			ft_check_bit(&current_bit, &lenght, &phrase, &binary);
-			ft_check_length(&lenght, &phrase, sender_pid);
+			ft_check_length(&lenght, &phrase, info[0].si_pid);
 			return ;
 		}
 		current_bit++;
