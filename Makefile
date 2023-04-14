@@ -23,9 +23,9 @@ ${LIBFTDIR}${LIBFT}:
 					${MAKE} -C ${LIBFTDIR}
 					${MAKE} -C ${LIBFTDIR} bonus
 ${NAMES}: ${OBJSS}
-					${CC} ${CFLAGS} -o ${NAMES} ${OBJSS} ${LIBFTDIR}${LIBFT}
+					${CC} ${CFLAGS} -g -o ${NAMES} ${OBJSS} ${LIBFTDIR}${LIBFT}
 ${NAMEC}: ${OBJSC}
-					${CC} ${CFLAGS} -o ${NAMEC} ${OBJSC} ${LIBFTDIR}${LIBFT}
+					${CC} ${CFLAGS} -g -o ${NAMEC} ${OBJSC} ${LIBFTDIR}${LIBFT}
 
 clean  :  
 					@rm -f ${OBJSS} ${OBJSC}

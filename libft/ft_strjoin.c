@@ -37,5 +37,5 @@ char	*ft_strjoin(char *s1, char *s2)
 		joined[i + j] = s2[j];
 		j++;
 	}
-	return (s1 = ft_free(s2), joined);
+	return (s2 = ft_free(s2), joined);
 }

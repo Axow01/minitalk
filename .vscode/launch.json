@@ -1,0 +1,17 @@
+{
+    "configurations": [
+    {
+        "name": "(lldb) Lancer",
+        "type": "cppdbg",
+        "request": "launch",
+        "program": "${workspaceFolder}/client",
+        "args": ["88761", "dfjadkfjadkfjadkjfakdjfakdfjaldjfaldjflj"],
+        "stopAtEntry": false,
+        "cwd": "${fileDirname}",
+        "environment": [],
+        "externalConsole": false,
+        "MIMode": "lldb",
+        "preLaunchTask": "C/C++: clang générer le fichier actif"
+    }
+    ]
+}
