@@ -1,6 +1,6 @@
-SRCLIENT = src/client.c
+SRCLIENT = src/client.c src/errors.c
 
-SRCSERVER = src/server.c
+SRCSERVER = src/server.c src/server_func.c
 
 OBJSERVER = $(patsubst src/%.c,bin/%.o,$(SRCSERVER))
 
