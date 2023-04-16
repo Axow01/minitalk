@@ -8,7 +8,7 @@
                 "-fcolor-diagnostics",
                 "-fansi-escape-codes",
                 "-g",
-                "${fileDirname}/libft/*.c",
+                "${fileDirname}/../libft/*.c",
                 "${fileDirname}/errors.c",
                 "${file}",
                 "-o",

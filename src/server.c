@@ -6,7 +6,7 @@
 /*   By: mmarcott <mmarcott@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 19:32:12 by mmarcott          #+#    #+#             */
-/*   Updated: 2023/04/14 22:29:51 by mmarcott         ###   ########.fr       */
+/*   Updated: 2023/04/15 23:02:54 by mmarcott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,22 +49,37 @@ void	ft_len(int signal, int *len, char **bytes)
 	count_int++;
 }
 
-void	ft_check_message_len(char *string, int pid, int *len)
+void	ft_check_message_len(char **string, int pid, int *len)
 {
-	if ((int)ft_strlen(string) == *len)
+	int leng;
+
+	leng = (int)ft_strlen(*string);
+	ft_printf("%d - %d\n", leng, *len);
+	if (leng == *len)
 	{
 		*len = 0;
-		ft_printf("%s", string);
-		string = ft_free(string);
+		ft_printf("%s", *string);
+		*string = ft_free(*string);
 		kill(pid, SIGUSR1);
 	}
 }
 
+void print_char_bits(char c) {
+  int i;
+
+  for (i = 7; i >= 0; i--) {
+    printf("%d", (c >> i) & 1);
+  }
+  printf("\n");
+}
+
 void	ft_receive(int signal, siginfo_t *info, void *context)
 {
-	static char	*bytes = NULL;
+	static char c = 0x80;
+	static char *bytes = NULL;
 	static int	count = 0;
 	static int	len = 0;
+	static int	largemessage = 0;
 	static char	*string = NULL;
 
 	(void)context;
@@ -73,18 +88,24 @@ void	ft_receive(int signal, siginfo_t *info, void *context)
 	else
 	{
 		if (signal == SIGUSR2)
-			bytes = ft_strjoin("1", bytes);
+			c = (c >> 1) | 0x80; // shift right and set the leftmost bit to 1
 		else if (signal == SIGUSR1)
-			bytes = ft_strjoin("0", bytes);
+			c = (c >> 1) & 0x7F;
 		if (count == 7)
 		{
+			largemessage += 1;
 			count = 0;
-			string = ft_add_char((char)ft_convert_binary(bytes), string);
-			bytes = ft_free(bytes);
-			ft_check_message_len(string, info[0].si_pid, &len);
+			string = ft_add_char(c, string);
+			c = 0x80;
+			ft_check_message_len(&string, info[0].si_pid, &len);
 			kill(info[0].si_pid, SIGUSR2);
 			return ;
-		}
+		}/*
+		if (largemessage >= 500)
+		{
+			largemessage = 0;
+			kill(info[0].si_pid, SIGUSR2);
+		}*/
 		count++;
 	}
 }
