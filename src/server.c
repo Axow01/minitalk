@@ -6,48 +6,29 @@
 /*   By: mmarcott <mmarcott@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 19:32:12 by mmarcott          #+#    #+#             */
-/*   Updated: 2023/04/18 17:00:44 by mmarcott         ###   ########.fr       */
+/*   Updated: 2023/04/18 18:33:34 by mmarcott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minitalk.h"
 
-int	ft_convert_binary(char *binary)
+void	ft_len(int signal, int *len)
 {
-	int	base;
-	int	dec;
-	int	i;
+	static int	count_int = 0;
+	static int	c = 0;
 
-	i = ft_strlen(binary) - 1;
-	dec = 0;
-	base = 1;
-	while (i >= 0)
+	if (signal == SIGUSR2)
+		c = (c >> 1) | (1 << 31);
+	else if (signal == SIGUSR1)
+		c = (c >> 1) & ~(1 << 31);
+	if (count_int == 31)
 	{
-		if (binary[i] == '1')
-			dec += base;
-		base *= 2;
-		i--;
+		*len = c;
+		count_int = 0;
+		c = 0;
+		return ;
 	}
-	return (dec);
-}
-
-void ft_len(int signal, int *len) {
-    static int count_int = 0;
-    static int c = 0;
-
-    if (signal == SIGUSR2) {
-        c = (c >> 1) | (1 << 31); // shift right and set the leftmost bit to 1
-    } else if (signal == SIGUSR1) {
-        c = (c >> 1) & ~(1 << 31); // shift right and set the leftmost bit to 0
-    }
-
-    if (count_int == 31) {
-        *len = c;
-        count_int = 0;
-        c = 0; // reset the counter for the next message
-    } else {
-        count_int++;
-    }
+	count_int++;
 }
 
 void	ft_check_message_len(char **string, int pid, int *len, int *i)
@@ -62,10 +43,19 @@ void	ft_check_message_len(char **string, int pid, int *len, int *i)
 	}
 }
 
+void	ft_assign(char **string, int signal, char *c, int len)
+{
+	if (!*string)
+		*string = ft_calloc(len + 1, sizeof(char));
+	if (signal == SIGUSR2)
+		*c = (*c >> 1) | 0x80;
+	else if (signal == SIGUSR1)
+		*c = (*c >> 1) & 0x7F;
+}
 
 void	ft_receive(int signal, siginfo_t *info, void *context)
 {
-	static char c = 0x80;
+	static char	c = 0x80;
 	static int	count = 0;
 	static int	len = 0;
 	static int	i = 0;
@@ -73,17 +63,10 @@ void	ft_receive(int signal, siginfo_t *info, void *context)
 
 	(void)context;
 	if (len == 0)
-	{
 		ft_len(signal, &len);
-	}
 	else
 	{
-		if (!string)
-			string = ft_calloc(len + 1, sizeof(char));
-		if (signal == SIGUSR2)
-			c = (c >> 1) | 0x80; // shift right and set the leftmost bit to 1
-		else if (signal == SIGUSR1)
-			c = (c >> 1) & 0x7F;
+		ft_assign(&string, signal, &c, len);
 		if (count == 7)
 		{
 			count = 0;
