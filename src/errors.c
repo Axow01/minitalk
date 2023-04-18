@@ -3,27 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mick <mick@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mmarcott <mmarcott@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/25 20:03:45 by mick              #+#    #+#             */
-/*   Updated: 2023/02/26 09:29:59 by mick             ###   ########.fr       */
+/*   Created: 2023/04/14 19:40:09 by mmarcott          #+#    #+#             */
+/*   Updated: 2023/04/18 17:02:00 by mmarcott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include "../includes/minitalk.h"
 
-void	ft_check_pid(char *pidd, char *message)
+void	ft_error(char *message, int exitn)
 {
-	int		i;
-	char	*pid;
+	ft_printf("%s", message);
+    exit(exitn);
+}
 
-	pid = pidd;
-	i = 0;
-	while (pid[i])
-	{
-		if (!ft_isdigit((int)pid[i++]))
-			ft_error_handling("The args[0] not a number!", "002");
-		if (message[0] == '\0')
-			ft_error_handling("The message is empty, not sending.", "003");
-	}
+void    ft_send_message(char *str, int pid)
+{
+    static int  i = 0;
+
+    if (str[i])
+        ft_send_byte(str[i++], pid);
 }

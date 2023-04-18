@@ -8,8 +8,8 @@
                 "-fcolor-diagnostics",
                 "-fansi-escape-codes",
                 "-g",
-                "${fileDirname}/libft/*.c",
-                "${fileDirname}/errors.c",
+                "${fileDirname}/../libft/*.c",
+                "${fileDirname}/server_func.c",
                 "${file}",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}"
