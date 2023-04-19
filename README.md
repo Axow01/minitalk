@@ -1,5 +1,7 @@
 # Minitalk
-42 Quebec School
+
+[![](https://img.shields.io/badge/42%20Quebec-School-orange)](https://42quebec.com)
+[![](https://img.shields.io/badge/Site-Edrya-informational)](https://edrya.com)
 
 # Description
 Minitalk is a simple chat system using unix signal. You have a server program that receive the message and a client program that sends it. We were only allowed to use the following signals: SIGUSR1 & SIGUSR2. To solve this problem you need to convert each char of the message into bytes and send each bit. In my case SIGUSR2 = 1 and SIGUSR1 = 0. After sending a byte the server catches it, and rebuild the char using bit shifting. The it prints out the char using the function write();. When all the bits in the byte have been catch, the server sends a signal to the client to confirm the reception of this char. Then the client continue to send the rest of the message. When the message is sent completly the server sends another signal to the client to confirm that all the message is received. To send a char the programs take about 0.092 seconds / chars, in my tests to send 100000 chars the programs take about 1m30.
