@@ -36,4 +36,4 @@ Minitalk is a simple chat system using unix signal. You have a server program th
 
 I did this project on my own, but this video help me a lot.
 
-<iframe width="800" height="600" src="https://www.youtube.com/embed/83M5-NPDeWs" title="Sending and Handling Signals in C (kill, signal, sigaction)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+[https://youtu.be/83M5-NPDeWs](https://youtu.be/83M5-NPDeWs) -- Jacob Sorber
