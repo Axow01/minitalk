@@ -6,7 +6,7 @@
 /*   By: mmarcott <mmarcott@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 19:32:12 by mmarcott          #+#    #+#             */
-/*   Updated: 2023/04/28 18:22:16 by mmarcott         ###   ########.fr       */
+/*   Updated: 2023/04/28 19:15:22 by mmarcott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,28 +57,25 @@ void	ft_assign(int signal, char *c)
 
 void	ft_receive(int signal, siginfo_t *info, void *context)
 {
-	static char	c = 0x80;
-	static int	count = 0;
-	static int	len = 0;
-	static int	i = 0;
-	static char	*str = NULL;
+	static t_rec	data = {0, 0, 0, 0, NULL, 0};
 
 	(void)context;
-	if (len <= 0)
+	if (data.pid == 0)
+		data.pid = info[0].si_pid;
+	ft_check_pid(info[0].si_pid, &data);
+	if (data.len <= 0)
+		ft_len(signal, &data.len, &data.str, info[0].si_pid);
+	else if (info[0].si_pid != 0 && data.len > 0)
 	{
-		ft_len(signal, &len, &str, info[0].si_pid);
-	}
-	else if (info[0].si_pid != 0 && len > 0)
-	{
-		ft_assign(signal, &c);
-		if (count == 7)
+		ft_assign(signal, &data.c);
+		if (data.count == 7)
 		{
-			count = -1;
-			str[i++] = c;
-			c = 0x80;
-			ft_check_message_len(info[0].si_pid, &len, &i, &str);
+			data.count = -1;
+			data.str[data.i++] = data.c;
+			data.c = 0x80;
+			ft_check_message_len(info[0].si_pid, &data.len, &data.i, &data.str);
 		}
-		count++;
+		data.count++;
 		kill(info[0].si_pid, SIGUSR2);
 	}
 }

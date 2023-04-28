@@ -6,7 +6,7 @@
 /*   By: mmarcott <mmarcott@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 19:32:41 by mmarcott          #+#    #+#             */
-/*   Updated: 2023/04/28 18:22:49 by mmarcott         ###   ########.fr       */
+/*   Updated: 2023/04/28 19:21:45 by mmarcott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ int	main(int argc, char **argv)
 	if (argc != 3)
 		ft_error("Usage: ./client <serverpid> <message>, not that hard men.\n",
 			1);
+	if (argv[2][0] == 0)
+		ft_error("Your message is empty ?", 1);
 	g_con.pid = atoi(argv[1]);
 	g_con.str = argv[2];
 	sa.sa_flags = SA_SIGINFO;
