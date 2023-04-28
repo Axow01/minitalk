@@ -6,13 +6,13 @@
 /*   By: mmarcott <mmarcott@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 19:32:12 by mmarcott          #+#    #+#             */
-/*   Updated: 2023/04/28 18:17:15 by mmarcott         ###   ########.fr       */
+/*   Updated: 2023/04/28 18:22:16 by mmarcott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minitalk.h"
 
-void	ft_len(int signal, int *len, char **str)
+void	ft_len(int signal, int *len, char **str, int pid)
 {
 	static int	count_int = 0;
 	static int	c = 0;
@@ -27,6 +27,8 @@ void	ft_len(int signal, int *len, char **str)
 		*str = ft_calloc(c + 1, sizeof(char));
 		count_int = 0;
 		c = 0;
+		usleep(100);
+		kill(pid, SIGUSR2);
 		return ;
 	}
 	count_int++;
@@ -53,14 +55,6 @@ void	ft_assign(int signal, char *c)
 		*c = (*c >> 1) & 0x7F;
 }
 
-void print_char_bits(char c) {
-    int i;
-    for (i = 7; i >= 0; i--) {
-        printf("%d", (c >> i) & 1);
-    }
-    printf("\n");
-}
-
 void	ft_receive(int signal, siginfo_t *info, void *context)
 {
 	static char	c = 0x80;
@@ -72,12 +66,7 @@ void	ft_receive(int signal, siginfo_t *info, void *context)
 	(void)context;
 	if (len <= 0)
 	{
-		ft_len(signal, &len, &str);
-		if (len > 0)
-		{
-			usleep(100);
-			kill(info[0].si_pid, SIGUSR2);
-		}
+		ft_len(signal, &len, &str, info[0].si_pid);
 	}
 	else if (info[0].si_pid != 0 && len > 0)
 	{
@@ -87,7 +76,6 @@ void	ft_receive(int signal, siginfo_t *info, void *context)
 			count = -1;
 			str[i++] = c;
 			c = 0x80;
-			//ft_printf("%d/%d\n", i, len);
 			ft_check_message_len(info[0].si_pid, &len, &i, &str);
 		}
 		count++;

@@ -6,7 +6,7 @@
 /*   By: mmarcott <mmarcott@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 19:32:41 by mmarcott          #+#    #+#             */
-/*   Updated: 2023/04/28 18:16:30 by mmarcott         ###   ########.fr       */
+/*   Updated: 2023/04/28 18:22:49 by mmarcott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ void	ft_send_len(int pid, char *message)
 		usleep(100);
 	}
 }
-
 
 /* Here we initialise our variable g_con. And we sends
  the first bit to the server. */
