@@ -9,7 +9,7 @@
                 "-fansi-escape-codes",
                 "-g",
                 "${fileDirname}/../libft/*.c",
-                "${fileDirname}/server_func.c",
+                "${fileDirname}/errors.c",
                 "${file}",
                 "-o",
                 "${fileDirname}/${fileBasenameNoExtension}"

@@ -12,7 +12,7 @@ NAMESERVER = server
 
 CC	 = gcc
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 
 LIBFT = libft.a
 LIBFTDIR = libft/
