@@ -39,4 +39,5 @@ Minitalk is a simple chat system using unix signal. You have a server program th
 I did this project on my own, but this video helped me a lot and the subject is just below.
 
 [https://youtu.be/83M5-NPDeWs](https://youtu.be/83M5-NPDeWs) -- Jacob Sorber
+
 [42 minitalk subject](https://cdn.intra.42.fr/pdf/pdf/58186/en.subject.pdf)
