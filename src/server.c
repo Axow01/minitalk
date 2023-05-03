@@ -6,7 +6,7 @@
 /*   By: mmarcott <mmarcott@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 19:32:12 by mmarcott          #+#    #+#             */
-/*   Updated: 2023/04/28 19:15:22 by mmarcott         ###   ########.fr       */
+/*   Updated: 2023/05/03 17:27:56 by mmarcott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	ft_len(int signal, int *len, char **str, int pid)
 	{
 		*len = c;
 		*str = ft_calloc(c + 1, sizeof(char));
+		if (!*str)
+			ft_error("Calloc error!\n", 1);
 		count_int = 0;
 		c = 0;
 		usleep(100);
