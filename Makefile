@@ -17,27 +17,41 @@ CFLAGS = -Wall -Wextra -Werror -g
 LIBFT = libft.a
 LIBFTDIR = libft/
 
-all: $(LIBFTDIR)$(LIBFT) $(NAMECLIENT) $(NAMESERVER)
+all: $(LIBFTDIR)$(LIBFT) $(NAMECLIENT) $(NAMESERVER) logo
 
 $(LIBFTDIR)$(LIBFT):
-	$(MAKE) -C $(LIBFTDIR)
-	$(MAKE) -C $(LIBFTDIR) bonus
+	@$(MAKE) -C $(LIBFTDIR)
+	@$(MAKE) -C $(LIBFTDIR) bonus
 
 $(NAMECLIENT): $(OBJCLIENT) $(LIBFTDIR)$(LIBFT)
-	$(CC) $(CFLAGS) -o $(NAMECLIENT) $(LIBFTDIR)$(LIBFT) $(OBJCLIENT)
+	@$(CC) $(CFLAGS) -o $(NAMECLIENT) $(LIBFTDIR)$(LIBFT) $(OBJCLIENT)
 
 $(NAMESERVER): $(OBJSERVER) $(LIBFTDIR)$(LIBFT)
-	$(CC) $(CFLAGS) -o $(NAMESERVER) $(LIBFTDIR)$(LIBFT) $(OBJSERVER)
+	@$(CC) $(CFLAGS) -o $(NAMESERVER) $(LIBFTDIR)$(LIBFT) $(OBJSERVER)
 
 bin/%.o: src/%.c
-	mkdir -p bin
-	$(CC) $(CFLAGS) -c -o $@ $<
+	@mkdir -p bin
+	@$(CC) $(CFLAGS) -c -o $@ $<
 
 clean:
 	@rm -rf bin/
-	$(MAKE) -C $(LIBFTDIR) fclean
+	@$(MAKE) -C $(LIBFTDIR) fclean
 
 fclean: clean
 	@rm $(NAMESERVER) $(NAMECLIENT)
 
 re: fclean all
+
+logo:
+	@echo "\033[32;1m"
+	@echo "███▄ ▄███▓ ███▄ ▄███▓ ▄▄▄       ██▀███   ▄████▄   ▒█████  ▄▄▄█████▓▄▄▄█████▓"
+	@echo "▓██▒▀█▀ ██▒▓██▒▀█▀ ██▒▒████▄    ▓██ ▒ ██▒▒██▀ ▀█  ▒██▒  ██▒▓  ██▒ ▓▒▓  ██▒ ▓▒"
+	@echo "▓██    ▓██░▓██    ▓██░▒██  ▀█▄  ▓██ ░▄█ ▒▒▓█    ▄ ▒██░  ██▒▒ ▓██░ ▒░▒ ▓██░ ▒░"
+	@echo "▒██    ▒██ ▒██    ▒██ ░██▄▄▄▄██ ▒██▀▀█▄  ▒▓▓▄ ▄██▒▒██   ██░░ ▓██▓ ░ ░ ▓██▓ ░ "
+	@echo "▒██▒   ░██▒▒██▒   ░██▒ ▓█   ▓██▒░██▓ ▒██▒▒ ▓███▀ ░░ ████▓▒░  ▒██▒ ░   ▒██▒ ░ "
+	@echo "░ ▒░   ░  ░░ ▒░   ░  ░ ▒▒   ▓▒█░░ ▒▓ ░▒▓░░ ░▒ ▒  ░░ ▒░▒░▒░   ▒ ░░     ▒ ░░   "
+	@echo "░  ░      ░░  ░      ░  ▒   ▒▒ ░  ░▒ ░ ▒░  ░  ▒     ░ ▒ ▒░     ░        ░    "
+	@echo "░      ░   ░      ░     ░   ▒     ░░   ░ ░        ░ ░ ░ ▒    ░        ░      "
+	@echo "       ░          ░         ░  ░   ░     ░ ░          ░ ░                    "
+	@echo "                                         ░                                   \033[0m"
+

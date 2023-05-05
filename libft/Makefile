@@ -34,15 +34,15 @@ CFLAGS = -Wall -Wextra -Werror
 all	: ${NAME}
  
 ${NAME}: ${OBJS}
-					@ar -rcs  ${NAME} ${OBJS}
+	@ar -rcs  ${NAME} ${OBJS}
  
 clean  :  
-					@rm -f ${OBJS} ${OBJSB}
+	@rm -f ${OBJS} ${OBJSB}
  
 fclean : clean
-					@rm -f ${NAME}
+	@rm -f ${NAME}
  
 re     : fclean all
 
 bonus : ${OBJSB}
-				@ar -rcs  ${NAME} ${OBJSB}
+	@ar -rcs  ${NAME} ${OBJSB}
