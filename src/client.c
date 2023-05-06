@@ -6,13 +6,11 @@
 /*   By: mmarcott <mmarcott@student.42quebec.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 19:32:41 by mmarcott          #+#    #+#             */
-/*   Updated: 2023/04/28 19:21:45 by mmarcott         ###   ########.fr       */
+/*   Updated: 2023/05/04 15:49:03 by mmarcott         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minitalk.h"
-
-#define CHUNK_SIZE 500
 
 t_con	g_con = {NULL, 0, 0, 0};
 
